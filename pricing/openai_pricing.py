@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from pyppeteer import launch
 import asyncio
-import json
+import re
 
 pricingPageUrl = "https://openai.com/pricing"
 
@@ -42,6 +42,15 @@ def extract_openai_pricing(html_content):
             for i in range(columnlen):
                 fieldValue = firstRow.find_all('td')[i].span.text.strip()
                 propObject[fieldValue] = tds[i].span.text    
+                allspans = tds[i].find_all("span")
+                if allspans and len(allspans) > 1:
+                    secondary = allspans[1]
+                    if secondary:
+                        sectext = secondary.text
+                        sectext = re.sub(r'[^a-zA-Z0-9\s]', '', sectext)
+                        # clean up the secondary text - only include alphanumeric characters
+                        propObject["unit"] = sectext.strip()
+                        
             model_prices.append(propObject)
         pricing_details[model_name] = model_prices
     # You can add more sections similarly if needed
