@@ -1,2 +1,4 @@
 Flask
 Gunicorn
+beautifulsoup4
+pyppeteer
