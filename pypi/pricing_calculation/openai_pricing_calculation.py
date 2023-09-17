@@ -28,7 +28,7 @@ def calculate_costs(pricingJson,category, model, total_embedding_token_count,pro
     costForThousandCurrency,embeddingsCost = calculate_embeddings_token_price(embeddingsModelPricing,total_embedding_token_count)
     costForThousandCurrency,promptCost = calculate_prompt_token_price(enginePricingData,category,prompt_llm_token_count)
     costForThousandCurrency,completionTokenCost = calculate_completion_token_price(enginePricingData,category,completion_llm_token_count)
-    return costForThousandCurrency,(embeddingsCost + promptCost + completionTokenCost)
+    return costForThousandCurrency,embeddingsCost,promptCost,completionTokenCost,(embeddingsCost + promptCost + completionTokenCost)
 
 def getPricingInfo(priceText):
     currency = priceText[0]
@@ -37,13 +37,20 @@ def getPricingInfo(priceText):
 
 def calculate_embeddings_token_price(embeddingsModelPricing,total_embedding_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(embeddingsModelPricing[embeddingsCategory][0][usageFieldName])
-    return costForThousandCurrency,(total_embedding_token_count/1000) * costForThousandNumber
+    calculated_cost = (total_embedding_token_count/1000) * costForThousandNumber
+    calculated_cost_rounded = round(calculated_cost,3)
+    return costForThousandCurrency,calculated_cost_rounded
 def calculate_prompt_token_price(enginePricingData,category, total_prompt_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(enginePricingData[category][0][inputFieldName])
-    return costForThousandCurrency,(total_prompt_token_count/1000) * costForThousandNumber
+    calculated_cost = (total_prompt_token_count/1000) * costForThousandNumber
+    calculated_cost_rounded = round(calculated_cost,3)
+    return costForThousandCurrency,calculated_cost_rounded
 def calculate_completion_token_price(enginePricingData,category, total_completion_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(enginePricingData[category][0][outputFieldName])
-    return costForThousandCurrency,(total_completion_token_count/1000) * costForThousandNumber
+    # round the cost to 3rd decimal place
+    calculated_cost = (total_completion_token_count/1000) * costForThousandNumber
+    calculated_cost_rounded = round(calculated_cost,3)
+    return costForThousandCurrency,calculated_cost_rounded
 
 # calculate_openai_pricing("GPT-3.5 Turbo","4K context",{
 #     'total_embedding_token_count': 21111,

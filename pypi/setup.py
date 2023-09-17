@@ -7,9 +7,9 @@ here = os.path.abspath(os.path.dirname(__file__))
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
-VERSION = '0.0.6'
-DESCRIPTION = 'Streaming video data via networks'
-LONG_DESCRIPTION = 'A package that allows to build simple streams of video, audio and camera data.'
+VERSION = '0.1.0'
+DESCRIPTION = 'Open AI Calculated Cost'
+LONG_DESCRIPTION = 'A package that helps calculate costs for Open AI API'
 
 # Setting up
 setup(
