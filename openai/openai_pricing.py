@@ -61,8 +61,6 @@ def writeRawHtmlData(pricingPageRawHtml,current_datetime):
     with open(current_datetimeiso+"_pricing_response.html", "w") as f:
             f.write(pricingPageRawHtml)
 
-
-
 def getPricingDetailsFromOpenAI(current_datetime):
     pricingPageRawHtml = asyncio.get_event_loop().run_until_complete(get_loaded_html())
     writeRawHtmlData(pricingPageRawHtml,current_datetime)

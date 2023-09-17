@@ -1,5 +1,6 @@
 from flask import Flask
 import get_price 
+from pricing import calc
 
 app = Flask(__name__)
 
@@ -11,5 +12,5 @@ def hello_world():
 def getOpenAIPricing():
     return get_price.main()
 
-result = get_price.main()
-print(result)
+#initial run
+get_price.main()

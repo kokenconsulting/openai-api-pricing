@@ -1,7 +1,7 @@
 import datetime
 import os
 import json
-from pricing import openai_pricing 
+from openai import openai_pricing 
 
 lastRetrievedDateTimeFieldName = "lastRetrievedDateTime"
 pricing_details_file_name = 'last_pricing_response.json'

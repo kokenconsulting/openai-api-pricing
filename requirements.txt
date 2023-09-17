@@ -2,3 +2,4 @@ Flask
 Gunicorn
 beautifulsoup4
 pyppeteer
+openai_pricing_calc_draft==0.0.6
