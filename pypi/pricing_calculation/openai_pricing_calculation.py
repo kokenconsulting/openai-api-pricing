@@ -38,25 +38,21 @@ def getPricingInfo(priceText):
 def calculate_embeddings_token_price(embeddingsModelPricing,total_embedding_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(embeddingsModelPricing[embeddingsCategory][0][usageFieldName])
     calculated_cost = (total_embedding_token_count/1000) * costForThousandNumber
-    calculated_cost_rounded = round(calculated_cost,3)
+    calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
 def calculate_prompt_token_price(enginePricingData,category, total_prompt_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(enginePricingData[category][0][inputFieldName])
     calculated_cost = (total_prompt_token_count/1000) * costForThousandNumber
-    calculated_cost_rounded = round(calculated_cost,3)
+    calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
 def calculate_completion_token_price(enginePricingData,category, total_completion_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(enginePricingData[category][0][outputFieldName])
     # round the cost to 3rd decimal place
     calculated_cost = (total_completion_token_count/1000) * costForThousandNumber
-    calculated_cost_rounded = round(calculated_cost,3)
+    calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
 
-# calculate_openai_pricing("GPT-3.5 Turbo","4K context",{
-#     'total_embedding_token_count': 21111,
-#     'prompt_llm_token_count': 10031,
-#     'completion_llm_token_count': 123123
-# })
+calculate_openai_pricing("GPT-3.5 Turbo","4K context",21111,10031,123123)
 
 #  print('Embedding Tokens: ', token_counter.total_embedding_token_count, '\n',
 #       'LLM Prompt Tokens: ', token_counter.prompt_llm_token_count, '\n',
