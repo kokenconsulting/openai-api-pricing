@@ -52,7 +52,7 @@ def calculate_completion_token_price(enginePricingData,category, total_completio
     calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
 
-calculate_openai_pricing("GPT-3.5 Turbo","4K context",21111,10031,123123)
+#calculate_openai_pricing("GPT-3.5 Turbo","4K context",21111,10031,123123)
 
 #  print('Embedding Tokens: ', token_counter.total_embedding_token_count, '\n',
 #       'LLM Prompt Tokens: ', token_counter.prompt_llm_token_count, '\n',
