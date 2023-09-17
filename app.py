@@ -1,6 +1,5 @@
 from flask import Flask
 import get_price 
-from pricing import calc
 
 app = Flask(__name__)
 
