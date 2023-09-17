@@ -5,11 +5,16 @@ usageFieldName = "Usage"
 inputFieldName = "Input"
 outputFieldName = "Output"
 thousand_constant = 1000
+openai_api_pricing_url = 'https://openai-api-pricing-web-api.onrender.com/openai'
 
 def calculate_openai_pricing(category, model,total_embedding_token_count,prompt_llm_token_count,completion_llm_token_count):
-    rawData = requests.get('https://openai-api-pricing-web-api.onrender.com/openai')
-    pricingJson = rawData.json()
+    pricingJson = get_api_pricing_data()
     return calculate_costs(pricingJson, category, model, total_embedding_token_count,prompt_llm_token_count,completion_llm_token_count)
+
+def get_api_pricing_data():
+    rawData = requests.get(openai_api_pricing_url)
+    pricingJson = rawData.json()
+    return pricingJson
     
 def get_embeddings_data(pricingJson):
     return filter_pricing_data_by_model(pricingJson, embeddingsCategory,embeddingsModel)
@@ -33,6 +38,7 @@ def calculate_costs(pricingJson,category, model, total_embedding_token_count,pro
     total_cost_rounded = round(total_cost,5)
     return costForThousandCurrency,embeddingsCost,promptCost,completionTokenCost,total_cost_rounded
 
+# TODO - This function relies on a specific format. Pricing API page can include currency separately.
 def getPricingInfo(priceText):
     currency = priceText[0]
     number = float(priceText[1:])
@@ -40,26 +46,19 @@ def getPricingInfo(priceText):
 
 def calculate_embeddings_token_price(embeddingsModelPricing,total_embedding_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(embeddingsModelPricing[embeddingsCategory][0][usageFieldName])
-    calculated_cost = (total_embedding_token_count/1000) * costForThousandNumber
+    calculated_cost = (total_embedding_token_count/thousand_constant) * costForThousandNumber
     calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
 
 def calculate_prompt_token_price(enginePricingData,category, total_prompt_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(enginePricingData[category][0][inputFieldName])
-    calculated_cost = (total_prompt_token_count/1000) * costForThousandNumber
+    calculated_cost = (total_prompt_token_count/thousand_constant) * costForThousandNumber
     calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
 
 def calculate_completion_token_price(enginePricingData,category, total_completion_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(enginePricingData[category][0][outputFieldName])
     # round the cost to 3rd decimal place
-    calculated_cost = (total_completion_token_count/1000) * costForThousandNumber
+    calculated_cost = (total_completion_token_count/thousand_constant) * costForThousandNumber
     calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
-
-#calculate_openai_pricing("GPT-3.5 Turbo","4K context",21111,10031,123123)
-
-#  print('Embedding Tokens: ', token_counter.total_embedding_token_count, '\n',
-#       'LLM Prompt Tokens: ', token_counter.prompt_llm_token_count, '\n',
-#       'LLM Completion Tokens: ', token_counter.completion_llm_token_count, '\n',
-#       'Total LLM Token Count: ', token_counter.total_llm_token_count)
