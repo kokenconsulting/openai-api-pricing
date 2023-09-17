@@ -7,7 +7,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
-VERSION = '0.1.3'
+VERSION = '0.2.0'
 DESCRIPTION = 'Open AI Calculated Cost'
 LONG_DESCRIPTION = 'A package that helps calculate costs for Open AI API'
 
@@ -20,6 +20,7 @@ setup(
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
     long_description=long_description,
+    url = "https://github.com/kokenconsulting/openai-api-pricing/tree/main/pypi",
     packages=find_packages(),
     install_requires=["requests"],
     keywords=['python', 'video', 'stream', 'video stream', 'camera stream', 'sockets'],

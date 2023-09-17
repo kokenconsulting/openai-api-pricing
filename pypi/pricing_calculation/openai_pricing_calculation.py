@@ -5,6 +5,7 @@ usageFieldName = "Usage"
 inputFieldName = "Input"
 outputFieldName = "Output"
 thousand_constant = 1000
+
 def calculate_openai_pricing(category, model,total_embedding_token_count,prompt_llm_token_count,completion_llm_token_count):
     rawData = requests.get('https://openai-api-pricing-web-api.onrender.com/openai')
     pricingJson = rawData.json()
@@ -42,11 +43,13 @@ def calculate_embeddings_token_price(embeddingsModelPricing,total_embedding_toke
     calculated_cost = (total_embedding_token_count/1000) * costForThousandNumber
     calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
+
 def calculate_prompt_token_price(enginePricingData,category, total_prompt_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(enginePricingData[category][0][inputFieldName])
     calculated_cost = (total_prompt_token_count/1000) * costForThousandNumber
     calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
+
 def calculate_completion_token_price(enginePricingData,category, total_completion_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(enginePricingData[category][0][outputFieldName])
     # round the cost to 3rd decimal place
