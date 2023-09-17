@@ -5,3 +5,7 @@ This repo contains code for serving OPEN AI API Pricing information. Information
 
 Pricing data in json format available on : [OPEN AI Pricing API](https://openai-api-pricing-web-api.onrender.com/openai).
 Source code: [Github](https://github.com/kokenconsulting/openai-api-pricing)
+
+## PYPI Package
+
+See details [here](https://github.com/kokenconsulting/openai-api-pricing/tree/main/pypi)
