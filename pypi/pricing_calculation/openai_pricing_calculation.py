@@ -28,7 +28,9 @@ def calculate_costs(pricingJson,category, model, total_embedding_token_count,pro
     costForThousandCurrency,embeddingsCost = calculate_embeddings_token_price(embeddingsModelPricing,total_embedding_token_count)
     costForThousandCurrency,promptCost = calculate_prompt_token_price(enginePricingData,category,prompt_llm_token_count)
     costForThousandCurrency,completionTokenCost = calculate_completion_token_price(enginePricingData,category,completion_llm_token_count)
-    return costForThousandCurrency,embeddingsCost,promptCost,completionTokenCost,(embeddingsCost + promptCost + completionTokenCost)
+    total_cost = (embeddingsCost + promptCost + completionTokenCost)
+    total_cost_rounded = round(total_cost,5)
+    return costForThousandCurrency,embeddingsCost,promptCost,completionTokenCost,total_cost_rounded
 
 def getPricingInfo(priceText):
     currency = priceText[0]
