@@ -44,6 +44,13 @@ def getPricingInfo(priceText):
     number = float(priceText[1:])
     return currency, number
 
+def get_pricing_object(embeddingsModelPricing,embeddingsCategory,usageFieldName):
+    if isinstance(embeddingsModelPricing[embeddingsCategory], list):
+        pricing = embeddingsModelPricing[embeddingsCategory][0][usageFieldName]
+    else:
+        pricing = embeddingsModelPricing[embeddingsCategory][usageFieldName]
+    return pricing
+
 def calculate_embeddings_token_price(embeddingsModelPricing,total_embedding_token_count):
     costForThousandCurrency,costForThousandNumber = getPricingInfo(embeddingsModelPricing[embeddingsCategory][0][usageFieldName])
     calculated_cost = (total_embedding_token_count/thousand_constant) * costForThousandNumber
@@ -51,13 +58,13 @@ def calculate_embeddings_token_price(embeddingsModelPricing,total_embedding_toke
     return costForThousandCurrency,calculated_cost_rounded
 
 def calculate_prompt_token_price(enginePricingData,category, total_prompt_token_count):
-    costForThousandCurrency,costForThousandNumber = getPricingInfo(enginePricingData[category][0][inputFieldName])
+    costForThousandCurrency,costForThousandNumber = getPricingInfo(get_pricing_object(enginePricingData,category,usageFieldName))
     calculated_cost = (total_prompt_token_count/thousand_constant) * costForThousandNumber
     calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
 
 def calculate_completion_token_price(enginePricingData,category, total_completion_token_count):
-    costForThousandCurrency,costForThousandNumber = getPricingInfo(enginePricingData[category][0][outputFieldName])
+    costForThousandCurrency,costForThousandNumber = getPricingInfo(get_pricing_object(enginePricingData,category,usageFieldName))
     # round the cost to 3rd decimal place
     calculated_cost = (total_completion_token_count/thousand_constant) * costForThousandNumber
     calculated_cost_rounded = round(calculated_cost,5)
