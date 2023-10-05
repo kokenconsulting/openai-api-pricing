@@ -58,13 +58,13 @@ def calculate_embeddings_token_price(embeddingsModelPricing,total_embedding_toke
     return costForThousandCurrency,calculated_cost_rounded
 
 def calculate_prompt_token_price(enginePricingData,category, total_prompt_token_count):
-    costForThousandCurrency,costForThousandNumber = getPricingInfo(get_pricing_object(enginePricingData,category,usageFieldName))
+    costForThousandCurrency,costForThousandNumber = getPricingInfo(get_pricing_object(enginePricingData,category,inputFieldName))
     calculated_cost = (total_prompt_token_count/thousand_constant) * costForThousandNumber
     calculated_cost_rounded = round(calculated_cost,5)
     return costForThousandCurrency,calculated_cost_rounded
 
 def calculate_completion_token_price(enginePricingData,category, total_completion_token_count):
-    costForThousandCurrency,costForThousandNumber = getPricingInfo(get_pricing_object(enginePricingData,category,usageFieldName))
+    costForThousandCurrency,costForThousandNumber = getPricingInfo(get_pricing_object(enginePricingData,category,outputFieldName))
     # round the cost to 3rd decimal place
     calculated_cost = (total_completion_token_count/thousand_constant) * costForThousandNumber
     calculated_cost_rounded = round(calculated_cost,5)

@@ -7,7 +7,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
-VERSION = '0.4.0'
+VERSION = '0.4.1'
 DESCRIPTION = 'LLM Cost Calculation'
 LONG_DESCRIPTION = 'A package that helps calculate costs for LLMs. Only OPEN AI is avaialble.'
 
