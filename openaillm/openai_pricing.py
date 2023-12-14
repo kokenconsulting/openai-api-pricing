@@ -41,6 +41,9 @@ def extract_openai_pricing(html_content):
             propObject = {}
             for i in range(columnlen):
                 fieldValue = firstRow.find_all('td')[i].span.text.strip()
+                # check if span has text property
+                if not tds[i].span:
+                    continue
                 propObject[fieldValue] = tds[i].span.text    
                 allspans = tds[i].find_all("span")
                 if allspans and len(allspans) > 1:

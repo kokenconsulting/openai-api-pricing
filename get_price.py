@@ -1,7 +1,7 @@
 import datetime
 import os
 import json
-from openai import openai_pricing 
+from openaillm import openai_pricing 
 
 lastRetrievedDateTimeFieldName = "lastRetrievedDateTime"
 pricing_details_file_name = 'last_pricing_response.json'
@@ -47,3 +47,6 @@ def main(llmType="openai"):
 def getLastRetrievedDateTime(pricingInfoFromFile):
     recordDate = datetime.datetime.strptime(pricingInfoFromFile[lastRetrievedDateTimeFieldName], "%Y-%m-%dT%H:%M:%S.%f")
     return recordDate
+
+if __name__ == "__main__":
+    main()

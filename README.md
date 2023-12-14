@@ -9,3 +9,7 @@ Source code: [Github](https://github.com/kokenconsulting/openai-api-pricing)
 ## PYPI Package
 
 See details [here](https://github.com/kokenconsulting/openai-api-pricing/tree/main/pypi)
+
+## PUBLISH
+username=__token__
+password="pypi-**rest of token**"
