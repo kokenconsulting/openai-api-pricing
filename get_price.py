@@ -48,5 +48,5 @@ def getLastRetrievedDateTime(pricingInfoFromFile):
     recordDate = datetime.datetime.strptime(pricingInfoFromFile[lastRetrievedDateTimeFieldName], "%Y-%m-%dT%H:%M:%S.%f")
     return recordDate
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
